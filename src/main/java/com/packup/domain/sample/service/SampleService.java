@@ -1,7 +1,7 @@
 package com.packup.domain.sample.service;
 
 import com.packup.common.dto.ApiResponse;
-import com.packup.domain.sample.dto.DevUserDto;
+import com.packup.domain.sample.model.DevUserDto;
 import com.packup.domain.sample.entity.DevUser;
 import com.packup.domain.sample.repository.SampleRepository;
 import jakarta.persistence.EntityNotFoundException;

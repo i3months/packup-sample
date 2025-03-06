@@ -1,7 +1,7 @@
 package com.packup.domain.sample.controller;
 
 import com.packup.common.dto.ApiResponse;
-import com.packup.domain.sample.dto.DevUserDto;
+import com.packup.domain.sample.model.DevUserDto;
 import com.packup.domain.sample.service.SampleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

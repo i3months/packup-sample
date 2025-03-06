@@ -1,4 +1,4 @@
-package com.packup.domain.sample.dto;
+package com.packup.domain.sample.model;
 
 import com.packup.domain.sample.entity.DevUser;
 import lombok.*;
