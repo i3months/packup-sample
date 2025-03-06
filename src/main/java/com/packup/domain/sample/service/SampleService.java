@@ -31,4 +31,11 @@ public class SampleService {
 
         return ApiResponse.success(DevUserDto.fromEntity(user), "사용자 정보를 조회합니다.");
     }
+
+    public ApiResponse<DevUserDto> getUserByNativeQuery() {
+        DevUser user = sampleRepository.findByNativeQuery("jmjeong")
+                .orElseThrow(() -> new EntityNotFoundException("해당 ID의 유저를 찾을 수 없습니다."));
+
+        return ApiResponse.success(DevUserDto.fromEntity(user), "사용자 정보를 조회합니다.");
+    }
 }

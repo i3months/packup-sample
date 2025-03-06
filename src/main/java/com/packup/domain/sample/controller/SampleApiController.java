@@ -28,4 +28,9 @@ public class SampleApiController {
     public ResponseEntity<ApiResponse<DevUserDto>> getUserByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(sampleService.getUserByUserId(userId));
     }
+
+    @GetMapping("/native")
+    public ResponseEntity<ApiResponse<DevUserDto>> getUserByNativeQuery() {
+        return ResponseEntity.ok(sampleService.getUserByNativeQuery());
+    }
 }
