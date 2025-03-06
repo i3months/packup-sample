@@ -14,11 +14,12 @@ public class ApiResponse<T> {
     /**
      * 응답 메세지
      * 200 인 경우 success, 실패한 경우 실패한 이유 ex) 사용자의 아이디가 중복되었습니다.
+     * 프론트에서는 해당 메세지를 바로 활용
      */
     private String message;
     /**
      * 반환하는 데이터
-     * 어차피 Jackson 라이브러리가 JSON으로 변환해줌
+     * 어차피 Jackson 라이브러리가 JSON 형식으로 변환
      */
     private T data;
 
