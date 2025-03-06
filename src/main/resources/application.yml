@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://pack-up.cz22a0iyw7zk.ap-northeast-2.rds.amazonaws.com
+    username: d
+    password: d
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
