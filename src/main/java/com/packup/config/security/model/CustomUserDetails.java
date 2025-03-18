@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return siteUser.getPassword();
+        return "";
     }
 
     @Override

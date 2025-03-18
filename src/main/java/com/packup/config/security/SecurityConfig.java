@@ -1,8 +1,11 @@
 package com.packup.config.security;
 
 import com.packup.config.security.filter.JwtAuthenticationFilter;
+import com.packup.config.security.handler.OAuth2AuthenticationSuccessHandler;
 import com.packup.config.security.provider.CustomAuthenticationProvider;
+import com.packup.config.security.provider.CustomOAuth2AuthenticationProvider;
 import com.packup.config.security.provider.JwtTokenProvider;
+import com.packup.config.security.service.CustomOAuth2UserService;
 import com.packup.config.security.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +27,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final CustomUserDetailsService customUserDetailsService;
+//    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,8 +42,12 @@ public class SecurityConfig {
                     .requestMatchers("/api/**").authenticated()
                     .anyRequest().permitAll()
             )
-            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-            .authenticationProvider(customAuthenticationProvider());
+            .oauth2Login(oauth2 -> oauth2
+                    .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+                    .successHandler(oAuth2AuthenticationSuccessHandler)
+            )
+            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//            .authenticationProvider(customAuthenticationProvider());
 
 
         return http.build();
@@ -55,13 +64,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CustomAuthenticationProvider customAuthenticationProvider() {
-        return new CustomAuthenticationProvider(customUserDetailsService, passwordEncoder());
+    public CustomOAuth2AuthenticationProvider customOAuth2AuthenticationProvider() {
+        return new CustomOAuth2AuthenticationProvider(customOAuth2UserService, jwtTokenProvider);
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager() {
-        return new ProviderManager(List.of(customAuthenticationProvider()));
+        return new ProviderManager(List.of(customOAuth2AuthenticationProvider()));
     }
 
 }
