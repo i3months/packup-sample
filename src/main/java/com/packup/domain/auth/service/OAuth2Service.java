@@ -41,7 +41,6 @@ public class OAuth2Service {
         siteUser.setProfileImage(userInfo.getProfileImage());
         authRepository.save(siteUser);
 
-        // JWT 토큰 발급
         return jwtTokenProvider.createToken(siteUser.getProviderId());
     }
 

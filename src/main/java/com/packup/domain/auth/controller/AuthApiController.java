@@ -18,20 +18,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 public class AuthApiController {
-    private final AuthenticationManager authenticationManager;
+//    private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse<JwtResponse>> login(@RequestBody LoginRequestDto loginRequestDto) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPassword())
-        );
-
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String token = jwtTokenProvider.createToken(userDetails.getUsername());
-
-        return ResponseEntity.ok(ApiResponse.success(new JwtResponse(token), "로그인 되었습니다."));
-    }
+    // id, pwd 기반 로그인은 수행하지 않음
+//    @PostMapping("/login")
+//    public ResponseEntity<ApiResponse<JwtResponse>> login(@RequestBody LoginRequestDto loginRequestDto) {
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPassword())
+//        );
+//
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        String token = jwtTokenProvider.createToken(userDetails.getUsername());
+//
+//        return ResponseEntity.ok(ApiResponse.success(new JwtResponse(token), "로그인 되었습니다."));
+//    }
 
 
 }

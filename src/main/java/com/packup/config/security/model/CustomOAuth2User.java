@@ -33,7 +33,7 @@ public class CustomOAuth2User implements OAuth2User {
 
     @Override
     public String getName() {
-        return siteUser.getUsername(); // 유저의 닉네임 반환
+        return siteUser.getUsername();
     }
 
     public String getEmail() {

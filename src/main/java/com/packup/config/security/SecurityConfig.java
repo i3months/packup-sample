@@ -27,8 +27,8 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final CustomOAuth2UserService customOAuth2UserService;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+//    private final CustomOAuth2UserService customOAuth2UserService;
+//    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -41,10 +41,11 @@ public class SecurityConfig {
                     .requestMatchers("/api/**").authenticated()
                     .anyRequest().permitAll()
             )
-            .oauth2Login(oauth2 -> oauth2
-                    .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-                    .successHandler(oAuth2AuthenticationSuccessHandler)
-            )
+                // 이 api 는 ssr 방식에서 사용함
+//            .oauth2Login(oauth2 -> oauth2
+//                    .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+//                    .successHandler(oAuth2AuthenticationSuccessHandler)
+//            )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 //            .authenticationProvider(customAuthenticationProvider());
 
@@ -62,15 +63,15 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter(jwtTokenProvider);
     }
 
-    @Bean
-    public CustomOAuth2AuthenticationProvider customOAuth2AuthenticationProvider() {
-        return new CustomOAuth2AuthenticationProvider(customOAuth2UserService, jwtTokenProvider);
-    }
+//    @Bean
+//    public CustomOAuth2AuthenticationProvider customOAuth2AuthenticationProvider() {
+//        return new CustomOAuth2AuthenticationProvider(customOAuth2UserService, jwtTokenProvider);
+//    }
 
 
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        return new ProviderManager(List.of(customOAuth2AuthenticationProvider()));
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager() {
+//        return new ProviderManager(List.of(customOAuth2AuthenticationProvider()));
+//    }
 
 }

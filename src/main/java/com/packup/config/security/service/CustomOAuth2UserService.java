@@ -31,7 +31,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     return authRepository.save(newUser);
                 });
 
-        // 기존 유저가 로그인할 때 프로필 이미지 업데이트
+        // 기존 유저가 로그인할 때 프로필 업데이트
         siteUser.setProfileImage(userInfo.getProfileImage());
         authRepository.save(siteUser);
 
